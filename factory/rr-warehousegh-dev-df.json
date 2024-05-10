@@ -1,0 +1,9 @@
+{
+	"name": "rr-warehousegh-dev-df",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "bd103175-bb61-4d5d-8ab1-0234c88d14f9",
+		"tenantId": "bef0eb6c-f7ae-4c38-94af-bacbad9fc9a5"
+	}
+}
