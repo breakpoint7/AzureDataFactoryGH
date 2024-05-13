@@ -1,4 +1,4 @@
-name: Test adf_publish trigger
+name: Hail Mary Test
 on:
   push:
     branches:
