@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-    - main
+    - adf_publish
  
 permissions:
       id-token: write
