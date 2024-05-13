@@ -10,7 +10,7 @@ permissions:
       contents: read
 
 jobs:
-  build_for_UAT:
+  config_for_UAT:
     runs-on: ubuntu-latest
     environment: 
       name: 'UAT'
@@ -53,7 +53,7 @@ jobs:
         path: ${{github.workspace}}/build/ExportedArmTemplate
         
   deploy_to_UAT:
-    needs: build_for_UAT
+    needs: config_for_UAT
     runs-on: ubuntu-latest
     steps:
     
@@ -81,7 +81,7 @@ jobs:
           armTemplateParametersFile: ARMTemplateParametersForFactory.json # (9) ARM template parameters file name ARMTemplateParametersForFactory.json
           # additionalParameters: # (10) Parameters which will be replaced in the ARM template. Expected format 'key1=value key2=value keyN=value'. At the minimum here you should provide the target ADF name parameter. Check the ARMTemplateParametersForFactory.json file for all the parameters that are expected in your scenario
 
-  build_for_PROD:
+  config_for_PROD:
     needs: deploy_to_UAT
     runs-on: ubuntu-latest
     environment: 
@@ -125,7 +125,7 @@ jobs:
         path: ${{github.workspace}}/build/ExportedArmTemplate
         
   deploy_to_PROD:
-    needs: build_for_PROD
+    needs: config_for_PROD
     runs-on: ubuntu-latest
     steps:
     
