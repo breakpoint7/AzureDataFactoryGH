@@ -7,7 +7,7 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "rr-warehousegh-dev-df"
 		}
-	},
+	}, 
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
