@@ -2,7 +2,7 @@ name: Test adf_publish trigger
 on:
   push:
     branches:
-    - adf_publish
+    - demo
 
 jobs:
   test:
