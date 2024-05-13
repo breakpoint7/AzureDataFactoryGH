@@ -1,0 +1,12 @@
+name: Test adf_publish trigger
+on:
+  push:
+    branches:
+    - adf_publish
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print message
+      run: echo "adf_publish trigger is working"
