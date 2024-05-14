@@ -1,9 +1,6 @@
 name: Deploy Azure Data Factory
 on:
   workflow_dispatch:
-  push:
-    branches:
-    - main
  
 permissions:
       id-token: write
@@ -19,8 +16,8 @@ jobs:
        echo "Client ${{ secrets.AZURE_CLIENT_ID }}"
        echo "Tenant ${{ vars.AZURE_TENANT_ID }}"
        echo "Subscription ${{ vars.AZURE_SUBSCRIPTION_ID }}"
-       echo "Data Factory Name ${{ vars.AZURE_DATAFACTORY_NAME }}"
-       echo "Data Factory RG ${{ vars.AZURE_DATAFACTORY_RG }}"
+       echo "Data Factory Name ${{ vars.AZURE_DATAFACTORY_DEV_NAME }}"
+       echo "Data Factory RG ${{ vars.AZURE_DATAFACTORY_DEV_RG }}"
        
     - uses: actions/checkout@v3
 # Installs Node and the npm packages saved in your package.json file in the build
@@ -35,12 +32,12 @@ jobs:
         
 # Validates all of the Data Factory resources in the repository. You'll get the same validation errors as when "Validate All" is selected.
     - name: Validate
-      run: npm run build validate ${{github.workspace}}/ /subscriptions/${{vars.AZURE_SUBSCRIPTION_ID}}/resourceGroups/${{vars.AZURE_DATAFACTORY_RG}}/providers/Microsoft.DataFactory/factories/${{vars.AZURE_DATAFACTORY_NAME}} # (2) The validate command needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance 
+      run: npm run build validate ${{github.workspace}}/ /subscriptions/${{vars.AZURE_SUBSCRIPTION_ID}}/resourceGroups/${{vars.AZURE_DATAFACTORY_DEV_RG}}/providers/Microsoft.DataFactory/factories/${{vars.AZURE_DATAFACTORY_DEV_NAME}} # (2) The validate command needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance 
       working-directory: ${{github.workspace}}/build
  
 
     - name: Validate and Generate ARM template
-      run: npm run build export ${{github.workspace}}/ /subscriptions/${{vars.AZURE_SUBSCRIPTION_ID}}/resourceGroups/${{vars.AZURE_DATAFACTORY_RG}}/providers/Microsoft.DataFactory/factories/${{vars.AZURE_DATAFACTORY_NAME}} "ExportedArmTemplate"  # (3) The build command, as validate, needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance. The 3rd parameter is the exported ARM template artifact name 
+      run: npm run build export ${{github.workspace}}/ /subscriptions/${{vars.AZURE_SUBSCRIPTION_ID}}/resourceGroups/${{vars.AZURE_DATAFACTORY_DEV_RG}}/providers/Microsoft.DataFactory/factories/${{vars.AZURE_DATAFACTORY_DEV_NAME}} "ExportedArmTemplate"  # (3) The build command, as validate, needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance. The 3rd parameter is the exported ARM template artifact name 
       working-directory: ${{github.workspace}}/build
  
 # In order to leverage the artifact in another job, we need to upload it with the upload action 
@@ -73,8 +70,8 @@ jobs:
       - name: data-factory-deploy
         uses: Azure/data-factory-deploy-action@v1.2.0
         with:
-          resourceGroupName: ${{vars.AZURE_DATAFACTORY_RG}} # (6) your target ADF resource group name
-          dataFactoryName: ${{vars.AZURE_DATAFACTORY_NAME}}  # (7) your target ADF name
+          resourceGroupName: ${{vars.AZURE_DATAFACTORY_DEV_RG}} # (6) your target ADF resource group name
+          dataFactoryName: ${{vars.AZURE_DATAFACTORY_DEV_NAME}}  # (7) your target ADF name
           armTemplateFile: ARMTemplateForFactory.json # (8) ARM template file name ARMTemplateForFactory.json
           armTemplateParametersFile: ARMTemplateParametersForFactory.json # (9) ARM template parameters file name ARMTemplateParametersForFactory.json
           # additionalParameters: # (10) Parameters which will be replaced in the ARM template. Expected format 'key1=value key2=value keyN=value'. At the minimum here you should provide the target ADF name parameter. Check the ARMTemplateParametersForFactory.json file for all the parameters that are expected in your scenario
