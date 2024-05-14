@@ -1,4 +1,4 @@
-name: Fire Extra Publish Trigger
+name: ADF Published Trigger
 on:
   push:
     branches:
@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Print message
-      run: echo "Extra Publish trigger is working"
+      run: echo "ADF was published in the Azure Portal"
