@@ -4,6 +4,9 @@
 	"parameters": {
 		"factoryName": {
 			"value": "rr-warehousegh-dev-df"
+		},
+		"AzureBlobStorage_connectionString": {
+			"value": ""
 		}
 	}
 }
