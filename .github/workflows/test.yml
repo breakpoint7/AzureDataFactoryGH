@@ -1,0 +1,12 @@
+name: Fire Extra Publish Trigger
+on:
+  push:
+    branches:
+    - adf_publish
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print message
+      run: echo "Extra Publish trigger is working"
