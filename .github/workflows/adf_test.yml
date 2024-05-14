@@ -1,4 +1,4 @@
-name: Test adf_publish trigger
+name: Fire DEMO Trigger
 on:
   push:
     branches:
@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Print message
-      run: echo "adf_publish trigger is working"
+      run: echo "Demo trigger is working"
