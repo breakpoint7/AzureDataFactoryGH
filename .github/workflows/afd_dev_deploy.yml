@@ -1,4 +1,4 @@
-name: Deploy Azure Data Factory
+name: Manual Deploy ADF to Dev
 on:
   workflow_dispatch:
  
