@@ -1,4 +1,4 @@
-name: Fire MAIN Trigger
+name: MAIN Branch Modified
 on:
   push:
     branches:
