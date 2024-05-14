@@ -7,7 +7,7 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "rr-warehousegh-dev-df"
 		}
-	}, 
+	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
@@ -20,6 +20,15 @@
 				"activities": [
 					{
 						"name": "Wait1",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": 1
+						}
+					},
+					{
+						"name": "Wait2",
 						"type": "Wait",
 						"dependsOn": [],
 						"userProperties": [],
