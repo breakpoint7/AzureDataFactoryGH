@@ -1,5 +1,5 @@
 {
-	"name": "CopyPipeline_e62",
+	"name": "CopyAzureStorage",
 	"properties": {
 		"activities": [
 			{
