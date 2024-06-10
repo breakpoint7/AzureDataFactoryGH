@@ -1,4 +1,4 @@
-name: Deploy Azure Data Factory UAT
+name: Deploy Dev ADF to UAT and PROD
 on:
   workflow_dispatch:
   push:
@@ -10,7 +10,7 @@ permissions:
       contents: read
 
 jobs:
-  config_for_UAT:
+  stage_for_UAT:
     runs-on: ubuntu-latest
     environment: 
       name: 'UAT'
@@ -29,7 +29,7 @@ jobs:
     - name: Setup Node.js environment
       uses: actions/setup-node@v3.4.1
       with:
-        node-version: 14.x
+        node-version: 18.x
         
     - name: install ADF Utilities package
       run: npm install
@@ -53,7 +53,7 @@ jobs:
         path: ${{github.workspace}}/build/ExportedArmTemplate
         
   deploy_to_UAT:
-    needs: config_for_UAT
+    needs: stage_for_UAT
     runs-on: ubuntu-latest
     steps:
     
@@ -81,7 +81,7 @@ jobs:
           armTemplateParametersFile: ARMTemplateParametersForFactory.json # (9) ARM template parameters file name ARMTemplateParametersForFactory.json
           # additionalParameters: # (10) Parameters which will be replaced in the ARM template. Expected format 'key1=value key2=value keyN=value'. At the minimum here you should provide the target ADF name parameter. Check the ARMTemplateParametersForFactory.json file for all the parameters that are expected in your scenario
 
-  config_for_PROD:
+  stage_for_PROD:
     needs: deploy_to_UAT
     runs-on: ubuntu-latest
     environment: 
@@ -101,7 +101,7 @@ jobs:
     - name: Setup Node.js environment
       uses: actions/setup-node@v3.4.1
       with:
-        node-version: 14.x
+        node-version: 18.x
         
     - name: install ADF Utilities package
       run: npm install
@@ -125,7 +125,7 @@ jobs:
         path: ${{github.workspace}}/build/ExportedArmTemplate
         
   deploy_to_PROD:
-    needs: config_for_PROD
+    needs: stage_for_PROD
     runs-on: ubuntu-latest
     steps:
     
