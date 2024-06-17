@@ -1,0 +1,16 @@
+{
+	"name": "integrationRuntime1",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/851d0f24-5e79-413a-bacc-caca720f0ed0/resourcegroups/rr-warehousegh-uat-rg/providers/Microsoft.DataFactory/factories/rr-warehousegh-uat-df/integrationruntimes/integrationRuntime1",
+				"authorizationType": "Rbac",
+				"credential": {
+					"referenceName": "credential1",
+					"type": "CredentialReference"
+				}
+			}
+		}
+	}
+}
