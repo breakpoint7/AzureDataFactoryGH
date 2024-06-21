@@ -1,6 +1,0 @@
-{
-	"name": "MySelfHostedRuntime",
-	"properties": {
-		"type": "SelfHosted"
-	}
-}
