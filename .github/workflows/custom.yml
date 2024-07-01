@@ -1,4 +1,4 @@
-name: Custom Script Deploy ADF to Dev
+name: Manual Deploy ADF to Dev
 on:
   workflow_dispatch:
  
@@ -75,7 +75,11 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           enable-AzPSSession: true 
 
-      - name: Deploy Data Factory using PowerShell Script
-        run: |
-          ./scripts/prepost.ps1 -resourceGroupName "${{ vars.AZURE_DATAFACTORY_DEV_RG }}" -dataFactoryName "${{ vars.AZURE_DATAFACTORY_DEV_NAME }}" -armTemplateFile "ARMTemplateForFactory.json" -armTemplateParametersFile "ARMTemplateParametersForFactory.json"
-        shell: pwsh
+      - name: data-factory-deploy
+        uses: Azure/data-factory-deploy-action@v1.2.0
+        with:
+          resourceGroupName: ${{vars.AZURE_DATAFACTORY_DEV_RG}} # (6) your target ADF resource group name
+          dataFactoryName: ${{vars.AZURE_DATAFACTORY_DEV_NAME}}  # (7) your target ADF name
+          armTemplateFile: ARMTemplateForFactory.json # (8) ARM template file name ARMTemplateForFactory.json
+          armTemplateParametersFile: ARMTemplateParametersForFactory.json # (9) ARM template parameters file name ARMTemplateParametersForFactory.json
+          # additionalParameters: # (10) Parameters which will be replaced in the ARM template. Expected format 'key1=value key2=value keyN=value'. At the minimum here you should provide the target ADF name parameter. Check the ARMTemplateParametersForFactory.json file for all the parameters that are expected in your scenario
